@@ -5,6 +5,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0020-valid-parentheses](https://github.com/bharathkumar57/Aps/tree/master/0020-valid-parentheses) |
+| [1396-design-underground-system](https://github.com/bharathkumar57/Aps/tree/master/1396-design-underground-system) |
 ## Stack
 |  |
 | ------- |
@@ -21,6 +22,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Design
 |  |
 | ------- |
+| [1396-design-underground-system](https://github.com/bharathkumar57/Aps/tree/master/1396-design-underground-system) |
 | [1603-design-parking-system](https://github.com/bharathkumar57/Aps/tree/master/1603-design-parking-system) |
 ## Simulation
 |  |
@@ -30,4 +32,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1603-design-parking-system](https://github.com/bharathkumar57/Aps/tree/master/1603-design-parking-system) |
+## Hash Table
+|  |
+| ------- |
+| [1396-design-underground-system](https://github.com/bharathkumar57/Aps/tree/master/1396-design-underground-system) |
 <!---LeetCode Topics End-->
