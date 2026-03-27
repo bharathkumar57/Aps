@@ -2,11 +2,11 @@ import java.util.*;
 
 class UndergroundSystem {
 
-    // Store check-in data: id -> (station, time)
-    Map<Integer, Pair<String, Integer>> checkInMap;
+    // id -> check-in info
+    private Map<Integer, CheckIn> checkInMap;
 
-    // Store route data: "start-end" -> (totalTime, count)
-    Map<String, Pair<Integer, Integer>> routeMap;
+    // route -> total time, count
+    private Map<String, int[]> routeMap;
 
     public UndergroundSystem() {
         checkInMap = new HashMap<>();
@@ -14,33 +14,38 @@ class UndergroundSystem {
     }
 
     public void checkIn(int id, String stationName, int t) {
-        checkInMap.put(id, new Pair<>(stationName, t));
+        checkInMap.put(id, new CheckIn(stationName, t));
     }
 
     public void checkOut(int id, String stationName, int t) {
-        Pair<String, Integer> checkInData = checkInMap.get(id);
+        CheckIn info = checkInMap.get(id);
+        checkInMap.remove(id);
 
-        String startStation = checkInData.getKey();
-        int startTime = checkInData.getValue();
+        String key = info.station + "-" + stationName;
+        int travelTime = t - info.time;
 
-        int travelTime = t - startTime;
+        routeMap.putIfAbsent(key, new int[2]);
 
-        String routeKey = startStation + "-" + stationName;
-
-        Pair<Integer, Integer> routeData =
-                routeMap.getOrDefault(routeKey, new Pair<>(0, 0));
-
-        int totalTime = routeData.getKey() + travelTime;
-        int count = routeData.getValue() + 1;
-
-        routeMap.put(routeKey, new Pair<>(totalTime, count));
+        int[] data = routeMap.get(key);
+        data[0] += travelTime; // total time
+        data[1] += 1;          // count
     }
 
     public double getAverageTime(String startStation, String endStation) {
-        String routeKey = startStation + "-" + endStation;
+        String key = startStation + "-" + endStation;
+        int[] data = routeMap.get(key);
 
-        Pair<Integer, Integer> routeData = routeMap.get(routeKey);
+        return (double) data[0] / data[1];
+    }
 
-        return (double) routeData.getKey() / routeData.getValue();
+    // Helper class
+    class CheckIn {
+        String station;
+        int time;
+
+        CheckIn(String station, int time) {
+            this.station = station;
+            this.time = time;
+        }
     }
 }
