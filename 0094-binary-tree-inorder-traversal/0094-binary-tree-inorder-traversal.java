@@ -7,11 +7,11 @@ class Solution {
         return result;
     }
 
-    private void inorder(TreeNode node, List<Integer> result) {
-        if (node == null) return;
+    private void inorder(TreeNode root, List<Integer> result) {
+        if (root == null) return;
 
-        inorder(node.left, result);   // Left
-        result.add(node.val);         // Root
-        inorder(node.right, result);  // Right
+        inorder(root.left, result);   // Left
+        result.add(root.val);         // Root
+        inorder(root.right, result);  // Right
     }
 }
