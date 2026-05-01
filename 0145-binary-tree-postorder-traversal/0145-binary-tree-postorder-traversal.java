@@ -7,11 +7,11 @@ class Solution {
         return result;
     }
 
-    private void postorder(TreeNode node, List<Integer> result) {
-        if (node == null) return;
+    private void postorder(TreeNode root, List<Integer> result) {
+        if (root == null) return;
 
-        postorder(node.left, result);   // Left
-        postorder(node.right, result);  // Right
-        result.add(node.val);           // Root
+        postorder(root.left, result);   // Left
+        postorder(root.right, result);  // Right
+        result.add(root.val);           // Root
     }
 }
