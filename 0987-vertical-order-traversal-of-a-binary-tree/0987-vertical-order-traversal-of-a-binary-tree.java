@@ -2,50 +2,40 @@ import java.util.*;
 
 class Solution {
 
-    class Node {
-        int col, row, val;
-
-        Node(int c, int r, int v) {
-            col = c;
-            row = r;
-            val = v;
-        }
-    }
-
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<Node> list = new ArrayList<>();
+        // column -> list of [row, value]
+        TreeMap<Integer, List<int[]>> map = new TreeMap<>();
         
-        // Step 1: DFS traversal
-        dfs(root, 0, 0, list);
+        dfs(root, 0, 0, map);
 
-        // Step 2: Sort
-        Collections.sort(list, (a, b) -> {
-            if (a.col != b.col) return a.col - b.col;
-            if (a.row != b.row) return a.row - b.row;
-            return a.val - b.val;
-        });
-
-        // Step 3: Group by column
         List<List<Integer>> result = new ArrayList<>();
-        int prevCol = Integer.MIN_VALUE;
 
-        for (Node node : list) {
-            if (node.col != prevCol) {
-                result.add(new ArrayList<>());
-                prevCol = node.col;
+        for (List<int[]> list : map.values()) {
+            // sort by row, then value
+            Collections.sort(list, (a, b) -> {
+                if (a[0] == b[0]) return a[1] - b[1];
+                return a[0] - b[0];
+            });
+
+            List<Integer> colList = new ArrayList<>();
+            for (int[] arr : list) {
+                colList.add(arr[1]);
             }
-            result.get(result.size() - 1).add(node.val);
+
+            result.add(colList);
         }
 
         return result;
     }
 
-    private void dfs(TreeNode node, int row, int col, List<Node> list) {
+    private void dfs(TreeNode node, int row, int col, 
+                     TreeMap<Integer, List<int[]>> map) {
         if (node == null) return;
 
-        list.add(new Node(col, row, node.val));
+        map.putIfAbsent(col, new ArrayList<>());
+        map.get(col).add(new int[]{row, node.val});
 
-        dfs(node.left, row + 1, col - 1, list);
-        dfs(node.right, row + 1, col + 1, list);
+        dfs(node.left, row + 1, col - 1, map);
+        dfs(node.right, row + 1, col + 1, map);
     }
 }
