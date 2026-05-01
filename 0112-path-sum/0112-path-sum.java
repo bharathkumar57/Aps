@@ -1,18 +1,19 @@
 class Solution {
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        // If tree is empty
-        if (root == null) return false;
+        // Base case: if tree is empty
+        if (root == null) {
+            return false;
+        }
 
-        // If leaf node
+        // Check if it's a leaf node
         if (root.left == null && root.right == null) {
             return targetSum == root.val;
         }
 
-        // Reduce targetSum
-        int remaining = targetSum - root.val;
+        // Recursively check left and right subtree
+        int remainingSum = targetSum - root.val;
 
-        // Check left or right
-        return hasPathSum(root.left, remaining) ||
-               hasPathSum(root.right, remaining);
+        return hasPathSum(root.left, remainingSum) || 
+               hasPathSum(root.right, remainingSum);
     }
 }
